@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'pg'
 gem 'slim-rails'
+gem 'ffaker', require: false
 
 group :development, :test do
   gem 'byebug', platform: :mri

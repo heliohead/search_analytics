@@ -2,12 +2,13 @@
   .wrapper
     .home
       h1.post-title Articles
-      ul.post-list
-        li
-          h2
-            a.post-link href="#"  Mussum Ipsum, cacilds vidis litro abertis.
-            span.post-meta
-              small Jan 28, 2017
+      - @articles.each do |article|
+        ul.post-list
+          li
+            h2
+              a.post-link href="#" = article.title
+              span.post-meta
+                small = article.created_at.to_formatted_s(:short)
 
       .pagination
         span &laquo; Prev
