@@ -18,10 +18,6 @@ gem 'pg'
 gem 'slim-rails'
 gem 'ffaker', require: false
 
-group :development, :test do
-  gem 'byebug', platform: :mri
-end
-
 group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
@@ -49,6 +45,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'byebug'
 end
 
 group :test do
