@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title SearchAnalytics
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One%7CSource+Serif+Pro" rel="stylesheet"
+
+  body
+    = render 'navigation_links'
+    = yield
+    = render 'footer'
