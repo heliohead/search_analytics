@@ -1,0 +1,22 @@
+.page-content
+  .wrapper
+    .home
+      h1.post-title Reached searches
+      - @searches[:reached].each do |searched_term, hits|
+        ul.post-list
+          li
+            h2
+              a.post-link href="#" = searched_term
+              span.post-meta
+                small = "have #{hits} hits"
+
+    .home
+      h1.post-title  Not Reached searches
+      - @searches[:not_reached].each do |searched_term, hits|
+        ul.post-list
+          li
+            h2
+              a.post-link href="#" = searched_term
+              span.post-meta
+                small = "have #{hits} hits"
+

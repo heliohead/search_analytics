@@ -13,7 +13,7 @@
       = link_to root_path do
         h1.site-title Search Analytics
       nav.site-nav
-        a.nav-link href="#"  Show Analytics
+        = link_to 'Show Analytics', searches_path, class: 'nav-link'
         a.nav-link href="https://github.com/heliohead/search_analytics"  Project
         = link_to 'About', about_path, class: 'nav-link'
     #wrap

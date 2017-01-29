@@ -7,7 +7,6 @@ RSpec.describe SearchesController, type: :controller do
 
       expect(response).to be_success
       expect(response.status).to eq(200)
-      expect(response.body).to include('id')
     end
   end
 end

@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
   def index
-    render json: {id: 1}
+    @searches = Search.searched_sentences
   end
 end
