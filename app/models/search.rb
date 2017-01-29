@@ -14,7 +14,7 @@ class Search
 
     def search_for_term(term)
       resulted_search = $redis.zrevrange "search_sugestions:#{sanitize(term)}", 0, 9
-      { suggestions: resulted_search.map { |elem| { value: elem } } }
+      { suggestions: resulted_search.map { |elem| { value: elem, data: elem } } }
     end
 
     def index_articles_for_sugestions

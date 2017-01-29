@@ -15,7 +15,7 @@ class SearchPerform
   end
 
   def respond_with_json(env)
-    search_term = Rack::Request.new(env).params['search_term']
+    search_term = Rack::Request.new(env).params['query']
     return @app.call(env) unless search_term
 
     case env['REQUEST_PATH']
