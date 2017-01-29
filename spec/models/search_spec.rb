@@ -4,18 +4,15 @@
 ###
 require 'rails_helper'
 require 'ffaker'
-$redis = MockRedis.new
 
 RSpec.describe Search, type: :model do
-  before(:each) { $redis.flushall }
-
   context 'search sugestions' do
     it 'return list of sugestions' do
       term = 'Elvis is dead'
       $redis.zincrby "search_sugestions:#{term.downcase}", 1, term.downcase
 
-      expect(Search.search_for_term(term)).to be_a(Array)
-      expect(Search.search_for_term(term)).to include(term.downcase)
+      expect(Search.search_for_term(term)).to be_a(Hash)
+      expect(Search.search_for_term(term)).to include(:suggestions)
     end
   end
 
