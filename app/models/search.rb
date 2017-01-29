@@ -1,15 +1,19 @@
 class Search
   class << self
     def searched_sentences
-      $redis.hgetall 'searchers'
+      { reached: $redis.hgetall('searchers'), not_reached: $redis.hgetall('searchers_not_reached') }
     end
 
     def index_sentence(sentence)
-     $redis.hincrby('searchers', sentence, 1)
+      if $redis.keys.include?("search_sugestions:#{sanitize(sentence)}")
+        $redis.hincrby('searchers', sentence, 1)
+      else
+        $redis.hincrby('searchers_not_reached', sentence, 1)
+      end
     end
 
     def search_for_term(term)
-      $redis.zrevrange "search_sugestions:#{term.downcase}", 0, 9
+      $redis.zrevrange "search_sugestions:#{sanitize(term)}", 0, 9
     end
 
     def index_articles_for_sugestions
@@ -23,8 +27,12 @@ class Search
     def index_terms_for_search(term)
       1.upto(term.size - 1) do |num|
         prefix = term[0, num]
-        $redis.zincrby "search_sugestions:#{prefix.downcase}", 1, term.downcase
+        $redis.zincrby "search_sugestions:#{sanitize(prefix)}", 1, sanitize(term)
       end
+    end
+
+    def sanitize(string)
+      string.downcase.gsub(/[^0-9a-z ]/i, '').squish
     end
   end
 end

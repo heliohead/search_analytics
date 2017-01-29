@@ -1,8 +1,14 @@
+###
+# Ok this logic become a little bit complicate, maybe split into two classes
+#
+###
 require 'rails_helper'
 require 'ffaker'
 $redis = MockRedis.new
 
 RSpec.describe Search, type: :model do
+  before(:each) { $redis.flushall }
+
   context 'search sugestions' do
     it 'return list of sugestions' do
       term = 'Elvis is dead'
@@ -15,7 +21,6 @@ RSpec.describe Search, type: :model do
 
   context 'index articles for sugestions' do
     it 'articles must be indexed' do
-      $redis.flushall
       2.times do
         Article.create(
           title: FFaker::HipsterIpsum.phrase,
@@ -30,14 +35,25 @@ RSpec.describe Search, type: :model do
 
   context 'index searched sentences' do
     it 'return a hash with searched sentences' do
+      article = Article.create( title: FFaker::HipsterIpsum.phrase, text: FFaker::HipsterIpsum.paragraphs)
+      Search.index_terms_for_search(article.title)
+      Search.index_sentence(article.title)
+
+      expect(Search.searched_sentences).to eq({ reached: { article.title => '1' }, not_reached: {} })
       expect(Search.searched_sentences).to be_a(Hash)
     end
 
-    it 'include sentence' do
-      sentence = 'Elvis is dead'
+    it 'retun a hash with searched sentences not reached' do
+      article = Article.create( title: FFaker::HipsterIpsum.phrase, text: FFaker::HipsterIpsum.paragraphs)
+      sentence = 'Nada em portugues aqui'
+      Search.index_articles_for_sugestions
       Search.index_sentence(sentence)
 
-      expect(Search.searched_sentences).to include(sentence)
+      expect(Search.searched_sentences).to include({ reached: {}, not_reached: { sentence => '1' } })
+    end
+
+    it 'removes non alphanumerics from strings' do
+      expect(Search.sanitize('Elvis . is ? Dead')).to eq('elvis is dead')
     end
   end
 end
