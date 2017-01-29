@@ -16,4 +16,7 @@
         a.nav-link href="#"  Show Analytics
         a.nav-link href="https://github.com/heliohead/search_analytics"  Project
         = link_to 'About', about_path, class: 'nav-link'
-        a.nav-link href="#"  Search
+    #wrap
+      form action="" autocomplete="on"
+        input#search name="search" placeholder=("What're we looking for ?") type="text"
+        input#search_submit type="submit" value="Rechercher"
