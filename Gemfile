@@ -17,6 +17,7 @@ gem 'turbolinks', '~> 5'
 gem 'pg'
 gem 'slim-rails'
 gem 'ffaker', require: false
+gem 'redis', '~>3.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -53,6 +54,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'mock_redis'
 end
 
 gem 'rails-assets-devbridge-autocomplete', source: 'https://rails-assets.org'
