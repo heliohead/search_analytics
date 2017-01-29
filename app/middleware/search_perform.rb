@@ -5,7 +5,7 @@ class SearchPerform
 
   def call(env)
     return @app.call(env) unless search_or_index?(env['REQUEST_PATH'])
-    respond_with_json(env['REQUEST_PATH'])
+    respond_with_json(env)
   end
 
   private
@@ -14,13 +14,17 @@ class SearchPerform
     request_path == '/search_index' || request_path == '/searches'
   end
 
-  def respond_with_json(request_path)
-    case request_path
+  def respond_with_json(env)
+    search_term = Rack::Request.new(env).params['search_term']
+    return @app.call(env) unless search_term
+
+    case env['REQUEST_PATH']
     when '/search_index'
-      [200, {'Content-Type' => 'application/json'}, [{ response: 'ok' }.to_json]]
+      Search.index_sentence(search_term)
+      [200, {'Content-Type' => 'application/json'}, [{ search_term_indexed: search_term }.to_json]]
     when '/searches'
-      require 'pry'; binding.pry
-      [200, {'Content-Type' => 'application/json'}, [{ response: 'seaches' }.to_json]]
+      resulted_search = Search.search_for_term(search_term)
+      [200, {'Content-Type' => 'application/json'}, [resulted_search.to_json]]
     end
   end
 end
