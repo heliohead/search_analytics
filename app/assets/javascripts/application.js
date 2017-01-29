@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require devbridge-autocomplete
 //= require turbolinks
 //= require_tree .
