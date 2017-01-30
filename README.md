@@ -3,48 +3,39 @@ Search Analytics
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
-
-Rails Composer is supported by developers who purchase our RailsApps tutorials.
-
-Problems? Issues?
------------
-
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
-
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
-
-Ruby on Rails
+About
 -------------
+This is a simple example to a search engine that save searched sentences and show quantity hits analytics per sentences
 
-This application requires:
+Stack
+-------------
 
 - Ruby 2.3.0
 - Rails 5.0.1
+- Redis 3.3.3
+- Postgres 9.6
+- Jquery some es5 code
 
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
 Getting Started
 ---------------
+```
+$ git clone git@github.com:heliohead/search_analytics.git
+$ cd search_analytics
+$ bin/setup
 
-Documentation and Support
--------------------------
+$ bin/rspec 
 
-Issues
--------------
+```
 
-Similar Projects
-----------------
 
-Contributing
-------------
-
-Credits
+Todo
 -------
+- Fix some js bugs on input search
+- Better style for analytics page
+- Add buttom to clear statistics
 
 License
 -------
+
+[WTFPL](http://www.wtfpl.net/about/)
